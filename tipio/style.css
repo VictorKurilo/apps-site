@@ -1,22 +1,98 @@
-:root { --bg:#fafaf9; --ink:#14201f; --sub:#5b665e; --accent:#0f766e; --card:#ffffff; --line:#e3e8e1; }
-@media (prefers-color-scheme: dark) { :root { --bg:#121315; --ink:#eef3ef; --sub:#a3b0a7; --accent:#2dd4bf; --card:#1c1d20; --line:#2a2c30; } }
+/* Tipio's website in the app's own look: light = theme 1 "Ink & Tangerine"
+   (paper, white cards, ink), dark = theme 4 "Midnight Mint" (navy, mint links),
+   Geist with Geist Mono section labels, values from Sources/Shared/DesignSystem/Tokens.swift. */
+@font-face { font-family: "Geist"; src: url("fonts/Geist-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("fonts/Geist-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("fonts/Geist-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
+
+:root {
+  --paper: #F6F5F1; --card: #FFFFFF; --edge: #E6E4DE; --ink: #111613; --text: #111613;
+  --muted: #5F645F; --tertiary: #6E746F; --link: #111613; --mint: #7DE0A8;
+  --inkSurface: #111613; --onInk: #FFFFFF; --onInkSec: #A9B0AA; --accent: #FF6A3D;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0B1220; --card: #141C2E; --edge: #24304A; --ink: #E8EEF8; --text: #E8EEF8;
+    --muted: #94A3B8; --tertiary: #8493AB; --link: #5EEAD4; --mint: #5EEAD4;
+    --inkSurface: #070C17; --onInk: #E8EEF8; --onInkSec: #9FADC1; --accent: #5EEAD4;
+    color-scheme: dark;
+  }
+}
+
 * { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
-main { max-width: 680px; margin: 0 auto; padding: 48px 20px 64px; }
-header { display:flex; align-items:center; gap:14px; margin-bottom: 28px; }
-header img { width:56px; height:56px; border-radius:13px; }
-header a { color:inherit; text-decoration:none; font-weight:700; font-size:22px; }
-h1 { font-size: 34px; line-height:1.15; margin: 8px 0 12px; }
-h2 { font-size: 20px; margin-top: 32px; }
-p, li { color: var(--sub); } strong { color: var(--ink); }
-a { color: var(--accent); }
-.card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding: 18px 20px; margin: 14px 0; }
-.cta { display:inline-block; background:var(--accent); color:#fff; padding:12px 20px; border-radius:12px; text-decoration:none; font-weight:600; }
-footer { margin-top: 48px; font-size: 14px; color: var(--sub); }
-nav a { margin-right: 16px; }
-.toc { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:15px; margin: 18px 0 8px; }
-.toc a { margin:0; }
-.table { overflow-x:auto; margin: 14px 0; }
-table { border-collapse:collapse; width:100%; font-size:15px; color:var(--sub); }
-th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); }
-th { color:var(--ink); }
+body { margin: 0; background: var(--paper); color: var(--text);
+  font: 17px/1.55 "Geist", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased; }
+main { max-width: 680px; margin: 0 auto; padding: 20px 16px 56px; }
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+p { margin: 0 0 10px; }
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--text); }
+
+/* Header: the app icon and the name, like the welcome screen's mark. */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+.brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none;
+  font-weight: 600; font-size: 22px; letter-spacing: -0.02em; }
+.brand img { width: 44px; height: 44px; border-radius: 10px; box-shadow: 0 0 0 1px var(--edge); }
+.top nav { display: flex; gap: 6px; }
+.top nav a { text-decoration: none; font-size: 15px; font-weight: 500; color: var(--text);
+  padding: 10px 14px; border-radius: 22px; background: var(--card); border: 1px solid var(--edge); }
+
+h1 { font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; }
+.lede { color: var(--muted); }
+.meta { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--tertiary); }
+
+/* The app's section label: Geist Mono caps over a card, inset 4 pt. */
+.label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 28px 4px 8px; line-height: 1.4; }
+h2.label { margin-top: 32px; }
+
+.card { background: var(--card); border: 1px solid var(--edge); border-radius: 20px; }
+.card.pad { padding: 16px 18px; }
+.card p, .card li { color: var(--muted); }
+.card ul { margin: 0; padding-left: 20px; }
+.card li { margin: 6px 0; }
+.small { font-size: 15px; }
+
+/* The ink card (the app's "Best day" card, the timer card). */
+.card.ink { background: var(--inkSurface); border-color: transparent; color: var(--onInk); }
+.card.ink p, .card.ink li { color: var(--onInkSec); }
+.card.ink strong, .card.ink h1 { color: var(--onInk); }
+.card.ink a { color: var(--mint); }
+.label.on-ink { color: var(--mint); margin: 0 0 6px; }
+@media (prefers-color-scheme: dark) { .card.ink { border-color: rgba(94, 234, 212, 0.18); } }
+
+.hero { padding: 22px 20px; margin-bottom: 8px; }
+.hero h1 { font-size: 36px; }
+.soon { display: inline-block; margin-top: 8px !important; padding: 11px 18px; border-radius: 24px;
+  background: var(--onInk); color: var(--inkSurface) !important; font-weight: 600; font-size: 15px; }
+
+/* Rows in a card with hairlines between them, like Settings. */
+.list > * + * { border-top: 1px solid var(--edge); }
+.row { padding: 14px 18px; }
+.row strong { display: block; margin-bottom: 2px; }
+.row p { margin: 0; font-size: 16px; }
+
+/* Help & FAQ rows: the question, a chevron, the answer when open. */
+details summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; padding: 15px 18px; min-height: 52px; font-weight: 500; color: var(--text); }
+details summary::-webkit-details-marker { display: none; }
+details summary:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; border-radius: 20px; }
+details .chev { flex: none; color: var(--tertiary); transition: transform .2s ease; transform: translateY(2px); }
+details[open] .chev { transform: translateY(2px) rotate(180deg); }
+details p { padding: 0 18px 14px; margin: 0; font-size: 16px; }
+
+/* Policy contents and tables. */
+.toc { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; margin: 16px 0 4px; }
+.table { overflow-x: auto; margin: 12px -4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; color: var(--muted); min-width: 520px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--edge); }
+th { color: var(--text); font-weight: 600; }
+.sec { scroll-margin-top: 16px; }
+
+footer { margin-top: 44px; font-size: 14px; color: var(--muted); }
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 8px; }
+footer p { font-size: 13px; }
